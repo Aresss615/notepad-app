@@ -1,0 +1,19 @@
+{
+  "name": "quicknotes-electron",
+  "version": "1.0.0",
+  "description": "QuickNotes Electron app with floating notes window and autosave",
+  "main": "main.js",
+  "scripts": {
+    "start": "set ELECTRON_RUN_AS_NODE=&& electron ."
+  },
+  "keywords": [
+    "electron",
+    "notes",
+    "quicknotes"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^36.0.0"
+  }
+}

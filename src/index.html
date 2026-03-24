@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuickNotes</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="titlebar drag-region">
+          <div class="brand">
+            <span class="brand-mark"></span>
+            <div>
+              <h1>QuickNotes</h1>
+              <p>Ctrl+Shift+Space to toggle</p>
+            </div>
+          </div>
+          <div class="window-actions no-drag">
+            <button id="minimizeBtn" class="icon-btn" aria-label="Minimize">-</button>
+            <button id="closeBtn" class="icon-btn" aria-label="Hide">x</button>
+          </div>
+        </div>
+
+        <div class="sidebar-actions">
+          <button id="newNoteBtn" class="primary-btn">New Note</button>
+        </div>
+
+        <div id="notesList" class="notes-list"></div>
+      </aside>
+
+      <main class="editor-panel">
+        <div class="editor-meta">
+          <input id="noteTitle" class="note-title-input" type="text" placeholder="Untitled note" maxlength="120" />
+          <div class="meta-row">
+            <span id="saveStatus">Saved</span>
+            <span id="updatedAt">Updated just now</span>
+          </div>
+        </div>
+
+        <label class="editor-wrap">
+          <textarea id="noteContent" placeholder="Start typing..."></textarea>
+        </label>
+      </main>
+    </div>
+
+    <script src="./renderer.js"></script>
+  </body>
+  </html>

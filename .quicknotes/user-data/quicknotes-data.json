@@ -1,0 +1,19 @@
+{
+  "activeNoteId": "note-1774354613427-8c3dc0",
+  "notes": [
+    {
+      "id": "note-1774354613427-8c3dc0",
+      "title": "Untitled note",
+      "content": "",
+      "createdAt": "2026-03-24T12:16:53.427Z",
+      "updatedAt": "2026-03-24T12:16:53.427Z"
+    },
+    {
+      "id": "note-1774354399029-173538",
+      "title": "Welcome",
+      "content": "QuickNotes is ready.\n\nUse Ctrl+Shift+Space to toggle this window.\nCreate, switch, and edit notes from the sidebar.",
+      "createdAt": "2026-03-24T12:13:19.029Z",
+      "updatedAt": "2026-03-24T12:13:19.029Z"
+    }
+  ]
+}
