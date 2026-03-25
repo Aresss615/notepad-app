@@ -18,6 +18,7 @@
             </div>
           </div>
           <div class="window-actions no-drag">
+            <button id="toggleSidebarBtn" class="icon-btn" aria-label="Toggle sidebar">|</button>
             <button id="minimizeBtn" class="icon-btn" aria-label="Minimize">-</button>
             <button id="closeBtn" class="icon-btn" aria-label="Hide">x</button>
           </div>
@@ -39,6 +40,8 @@
 
         <div id="notesList" class="notes-list" tabindex="0" aria-label="Notes list"></div>
       </aside>
+
+      <div id="sidebarResizeHandle" class="sidebar-resize-handle" role="separator" aria-label="Resize sidebar" aria-orientation="vertical"></div>
 
       <main class="editor-panel">
         <section class="workspace-header">

@@ -12,11 +12,18 @@ const saveStatus = document.getElementById("saveStatus");
 const updatedAt = document.getElementById("updatedAt");
 const minimizeBtn = document.getElementById("minimizeBtn");
 const closeBtn = document.getElementById("closeBtn");
+const toggleSidebarBtn = document.getElementById("toggleSidebarBtn");
+const sidebarResizeHandle = document.getElementById("sidebarResizeHandle");
 const lineNumbers = document.getElementById("lineNumbers");
 const cursorInfo = document.getElementById("cursorInfo");
 const selectionInfo = document.getElementById("selectionInfo");
 const docStats = document.getElementById("docStats");
 const activeLabel = document.getElementById("activeLabel");
+const appShell = document.querySelector(".app-shell");
+
+const SIDEBAR_MIN_WIDTH = 220;
+const SIDEBAR_MAX_WIDTH = 460;
+const SIDEBAR_COLLAPSED_WIDTH = 78;
 
 let state = {
   activeNoteId: null,
@@ -25,6 +32,9 @@ let state = {
 
 let saveTimer = null;
 let filterText = "";
+let sidebarWidth = 320;
+let isSidebarCollapsed = false;
+let isResizingSidebar = false;
 
 function formatDate(isoString) {
   return new Intl.DateTimeFormat(undefined, {
@@ -166,10 +176,36 @@ function duplicateActiveNote() {
   queueSave();
 }
 
+function updateSidebarLayout() {
+  const width = isSidebarCollapsed ? SIDEBAR_COLLAPSED_WIDTH : sidebarWidth;
+  appShell.style.setProperty("--sidebar-width", `${width}px`);
+  appShell.classList.toggle("sidebar-collapsed", isSidebarCollapsed);
+  toggleSidebarBtn.textContent = isSidebarCollapsed ? ">" : "<";
+  toggleSidebarBtn.setAttribute("aria-label", isSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar");
+  sidebarResizeHandle.setAttribute("aria-hidden", String(isSidebarCollapsed));
+}
+
+function toggleSidebar() {
+  isSidebarCollapsed = !isSidebarCollapsed;
+  updateSidebarLayout();
+}
+
+function resizeSidebar(nextWidth) {
+  sidebarWidth = Math.min(SIDEBAR_MAX_WIDTH, Math.max(SIDEBAR_MIN_WIDTH, nextWidth));
+  isSidebarCollapsed = false;
+  updateSidebarLayout();
+}
+
 function deleteActiveNote() {
   const activeNote = getActiveNote();
 
   if (!activeNote) {
+    return;
+  }
+
+  const confirmed = window.confirm(`Delete "${activeNote.title || "Untitled note"}"? This cannot be undone.`);
+
+  if (!confirmed) {
     return;
   }
 
@@ -287,6 +323,7 @@ newNoteBtn.addEventListener("click", createNote);
 duplicateNoteBtn.addEventListener("click", duplicateActiveNote);
 deleteNoteBtn.addEventListener("click", deleteActiveNote);
 focusSearchBtn.addEventListener("click", () => searchInput.focus());
+toggleSidebarBtn.addEventListener("click", toggleSidebar);
 
 searchInput.addEventListener("input", (event) => {
   filterText = event.target.value;
@@ -320,6 +357,40 @@ minimizeBtn.addEventListener("click", () => {
 
 closeBtn.addEventListener("click", () => {
   window.quickNotes.closeWindow();
+});
+
+sidebarResizeHandle.addEventListener("pointerdown", (event) => {
+  if (isSidebarCollapsed) {
+    return;
+  }
+
+  isResizingSidebar = true;
+  sidebarResizeHandle.setPointerCapture(event.pointerId);
+  document.body.classList.add("resizing-sidebar");
+});
+
+sidebarResizeHandle.addEventListener("pointermove", (event) => {
+  if (!isResizingSidebar) {
+    return;
+  }
+
+  resizeSidebar(event.clientX);
+});
+
+sidebarResizeHandle.addEventListener("pointerup", (event) => {
+  if (!isResizingSidebar) {
+    return;
+  }
+
+  isResizingSidebar = false;
+  sidebarResizeHandle.releasePointerCapture(event.pointerId);
+  document.body.classList.remove("resizing-sidebar");
+});
+
+sidebarResizeHandle.addEventListener("dblclick", () => {
+  isSidebarCollapsed = false;
+  sidebarWidth = 320;
+  updateSidebarLayout();
 });
 
 window.addEventListener("keydown", (event) => {
@@ -403,6 +474,7 @@ window.addEventListener("beforeunload", () => {
 
 async function bootstrap() {
   state = await window.quickNotes.loadNotes();
+  updateSidebarLayout();
   render();
 }
 

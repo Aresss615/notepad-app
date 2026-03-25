@@ -92,6 +92,7 @@ function createWindow() {
     height: 680,
     minWidth: 760,
     minHeight: 520,
+    resizable: true,
     show: false,
     frame: false,
     titleBarStyle: "hidden",
@@ -107,12 +108,6 @@ function createWindow() {
   });
 
   mainWindow.loadFile(path.join(__dirname, "src", "index.html"));
-
-  mainWindow.on("blur", () => {
-    if (mainWindow && !mainWindow.webContents.isDevToolsOpened()) {
-      mainWindow.hide();
-    }
-  });
 
   mainWindow.on("closed", () => {
     mainWindow = null;
