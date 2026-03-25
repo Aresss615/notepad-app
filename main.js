@@ -5,7 +5,8 @@ const path = require("path");
 
 const TOGGLE_SHORTCUT = "CommandOrControl+Shift+Space";
 const DEFAULT_NOTE_ID = () => `note-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
-const APP_DATA_ROOT = path.join(__dirname, ".quicknotes");
+const APP_BASE_DIR = app.isPackaged ? path.dirname(process.execPath) : __dirname;
+const APP_DATA_ROOT = path.join(APP_BASE_DIR, ".quicknotes");
 const USER_DATA_DIR = path.join(APP_DATA_ROOT, "user-data");
 const SESSION_DATA_DIR = path.join(APP_DATA_ROOT, "session-data");
 const RUNTIME_CACHE_DIR = path.join(os.tmpdir(), "quicknotes-runtime-cache", String(process.pid));

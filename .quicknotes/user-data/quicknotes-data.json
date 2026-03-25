@@ -1,6 +1,13 @@
 {
-  "activeNoteId": "note-1774354613427-8c3dc0",
+  "activeNoteId": "note-1774356732065-bbe864",
   "notes": [
+    {
+      "id": "note-1774356732065-bbe864",
+      "title": "John ",
+      "content": "",
+      "createdAt": "2026-03-24T12:52:12.065Z",
+      "updatedAt": "2026-03-24T12:52:55.051Z"
+    },
     {
       "id": "note-1774354613427-8c3dc0",
       "title": "Untitled note",

@@ -13,8 +13,8 @@
           <div class="brand">
             <span class="brand-mark"></span>
             <div>
-              <h1>QuickNotes</h1>
-              <p>Ctrl+Shift+Space to toggle</p>
+              <h1>QuickNotes IDE</h1>
+              <p>Programming notes with shortcuts</p>
             </div>
           </div>
           <div class="window-actions no-drag">
@@ -23,28 +23,73 @@
           </div>
         </div>
 
-        <div class="sidebar-actions">
+        <div class="sidebar-actions no-drag">
           <button id="newNoteBtn" class="primary-btn">New Note</button>
+          <button id="duplicateNoteBtn" class="secondary-btn">Duplicate</button>
         </div>
 
-        <div id="notesList" class="notes-list"></div>
+        <div class="sidebar-search no-drag">
+          <input id="searchInput" type="search" placeholder="Search notes, topics, code..." />
+        </div>
+
+        <div class="sidebar-meta no-drag">
+          <span id="noteCounter">0 notes</span>
+          <span id="shortcutHint">Ctrl+N new</span>
+        </div>
+
+        <div id="notesList" class="notes-list" tabindex="0" aria-label="Notes list"></div>
       </aside>
 
       <main class="editor-panel">
-        <div class="editor-meta">
-          <input id="noteTitle" class="note-title-input" type="text" placeholder="Untitled note" maxlength="120" />
-          <div class="meta-row">
-            <span id="saveStatus">Saved</span>
-            <span id="updatedAt">Updated just now</span>
+        <section class="workspace-header">
+          <div class="editor-meta">
+            <input id="noteTitle" class="note-title-input" type="text" placeholder="Untitled note" maxlength="120" />
+            <div class="meta-row">
+              <span id="saveStatus">Saved</span>
+              <span id="updatedAt">Updated just now</span>
+            </div>
           </div>
-        </div>
 
-        <label class="editor-wrap">
-          <textarea id="noteContent" placeholder="Start typing..."></textarea>
-        </label>
+          <div class="command-strip">
+            <button id="focusSearchBtn" class="ghost-btn">Search</button>
+            <button id="deleteNoteBtn" class="ghost-btn danger-btn">Delete</button>
+          </div>
+        </section>
+
+        <section class="shortcut-panel">
+          <span>Shortcuts</span>
+          <span>`Ctrl+N` New</span>
+          <span>`Ctrl+D` Duplicate</span>
+          <span>`Ctrl+S` Save</span>
+          <span>`Ctrl+F` Search</span>
+          <span>`Ctrl+1` Notes</span>
+          <span>`Ctrl+2` Editor</span>
+          <span>`Ctrl+Backspace` Delete</span>
+        </section>
+
+        <section class="editor-frame">
+          <div class="editor-toolbar">
+            <span id="activeLabel">active note</span>
+            <span id="editorMode">study mode</span>
+          </div>
+
+          <div class="code-editor">
+            <pre id="lineNumbers" class="line-numbers" aria-hidden="true">1</pre>
+            <label class="editor-wrap">
+              <textarea id="noteContent" spellcheck="false" placeholder="Write lecture notes, pseudo-code, formulas, snippets, or debugging plans..."></textarea>
+            </label>
+          </div>
+        </section>
+
+        <footer class="status-bar">
+          <span id="cursorInfo">Ln 1, Col 1</span>
+          <span id="selectionInfo">0 selected</span>
+          <span id="docStats">0 lines • 0 words • 0 chars</span>
+          <span>Ctrl+Shift+Space toggle</span>
+        </footer>
       </main>
     </div>
 
     <script src="./renderer.js"></script>
   </body>
-  </html>
+</html>

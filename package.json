@@ -4,7 +4,8 @@
   "description": "QuickNotes Electron app with floating notes window and autosave",
   "main": "main.js",
   "scripts": {
-    "start": "set ELECTRON_RUN_AS_NODE=&& electron ."
+    "start": "set ELECTRON_RUN_AS_NODE=&& electron .",
+    "dist": "electron-builder --win nsis"
   },
   "keywords": [
     "electron",
@@ -13,7 +14,40 @@
   ],
   "author": "",
   "license": "MIT",
+  "build": {
+    "appId": "com.quicknotes.app",
+    "productName": "QuickNotes",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "package.json",
+      "!node_modules/.cache/**/*",
+      "!.quicknotes/**/*",
+      "!release/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
   "devDependencies": {
-    "electron": "^36.0.0"
+    "electron": "^36.0.0",
+    "electron-builder": "^26.8.1"
   }
 }
