@@ -4,8 +4,9 @@
   "description": "QuickNotes Electron app with floating notes window and autosave",
   "main": "main.js",
   "scripts": {
-    "start": "set ELECTRON_RUN_AS_NODE=&& electron .",
-    "dist": "electron-builder --win nsis"
+    "start": "electron .",
+    "dist:mac": "electron-builder --mac",
+    "dist:win": "electron-builder --win nsis"
   },
   "keywords": [
     "electron",

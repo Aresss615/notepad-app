@@ -246,12 +246,14 @@ function renderNotesList() {
   noteCounter.textContent = filterText
     ? `${filteredNotes.length} of ${state.notes.length} notes`
     : `${filteredNotes.length} ${filteredNotes.length === 1 ? "note" : "notes"}`;
-  shortcutHint.textContent = filterText ? "Ctrl+F search" : "Ctrl+N new";
+  const isMac = navigator.userAgentData?.platform === "macOS" || /Mac/i.test(navigator.userAgent);
+  const mod = isMac ? "⌘" : "Ctrl";
+  shortcutHint.textContent = filterText ? `${mod}+F search` : `${mod}+N new`;
 
   if (!filteredNotes.length) {
     const emptyState = document.createElement("div");
     emptyState.className = "empty-state";
-    emptyState.textContent = "No matching notes. Try a different search or create a new class note.";
+    emptyState.textContent = "No matching notes. Try a different search or create a new note.";
     notesList.appendChild(emptyState);
     return;
   }
@@ -348,7 +350,6 @@ noteContent.addEventListener("scroll", () => {
 });
 
 noteContent.addEventListener("click", updateEditorMetrics);
-noteContent.addEventListener("keyup", updateEditorMetrics);
 noteContent.addEventListener("select", updateEditorMetrics);
 
 minimizeBtn.addEventListener("click", () => {
