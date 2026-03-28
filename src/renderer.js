@@ -30,6 +30,9 @@ let state = {
   notes: []
 };
 
+const isMac = navigator.userAgentData?.platform === "macOS" || /Mac/i.test(navigator.userAgent);
+const modKey = isMac ? "⌘" : "Ctrl";
+
 let saveTimer = null;
 let filterText = "";
 let sidebarWidth = 320;
@@ -246,9 +249,7 @@ function renderNotesList() {
   noteCounter.textContent = filterText
     ? `${filteredNotes.length} of ${state.notes.length} notes`
     : `${filteredNotes.length} ${filteredNotes.length === 1 ? "note" : "notes"}`;
-  const isMac = navigator.userAgentData?.platform === "macOS" || /Mac/i.test(navigator.userAgent);
-  const mod = isMac ? "⌘" : "Ctrl";
-  shortcutHint.textContent = filterText ? `${mod}+F search` : `${mod}+N new`;
+  shortcutHint.textContent = filterText ? `${modKey}+F search` : `${modKey}+N new`;
 
   if (!filteredNotes.length) {
     const emptyState = document.createElement("div");
